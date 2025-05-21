@@ -18,7 +18,8 @@ const handleDescRatings = (watchList, setWatchList) => {
 };
 
 const WatchList = () => {
-  const { watchList, removeFromWatchList } = useContext(WatchListContext);
+  const { watchList, removeFromWatchList, setWatchList } =
+    useContext(WatchListContext);
   const [search, setSearch] = useState("");
   const [genreList] = useState([...Object.values(genreMap), ALL_GENRES]);
   const [movies, setMovies] = useState([...watchList]);
@@ -82,12 +83,12 @@ const WatchList = () => {
                 <div className="flex items-center">
                   <i
                     className="fa-solid fa-arrow-up cursor-pointer"
-                    onClick={handleDescRatings}
+                    onClick={() => handleDescRatings(watchList, setWatchList)}
                   ></i>
                   <div>{WATCHLIST_TABLE_HEADERS.Ratings}</div>
                   <i
                     className="fa-solid fa-arrow-down cursor-pointer"
-                    onClick={handleAscRatings}
+                    onClick={() => handleAscRatings(watchList, setWatchList)}
                   ></i>
                 </div>
               </th>

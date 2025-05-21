@@ -1,6 +1,7 @@
-import { useContext, useEffect, useState } from "react";
+import { useContext, useState } from "react";
 import { genreMap } from "../constants/genres";
 import { WatchListContext } from "../context/watchListContext";
+import { getGenreFromGenreIds } from "../utils";
 
 export const WatchList = ({}) => {
   const { watchList, setWatchList, removeFromWatchList } =
@@ -8,14 +9,6 @@ export const WatchList = ({}) => {
   const [search, setSearch] = useState("");
   const [genreList] = useState([...Object.values(genreMap), "All Genres"]);
   const [selectedGenre, setSelectedGenre] = useState("All Genres");
-
-  const getGenreFromGenreIds = (genreIdsArr) => {
-    let res = [];
-    for (let i = 0; i < genreIdsArr.length; i++) {
-      res.push(genreMap[genreIdsArr[i]]);
-    }
-    return res.join(", ");
-  };
 
   const handleAscRatings = () => {
     const sorted = watchList.sort((a, b) => a.vote_average - b.vote_average);

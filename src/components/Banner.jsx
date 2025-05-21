@@ -12,11 +12,11 @@ export const Banner = () => {
       )
       .then((res) => {
         const movie = res.data.results[0];
-        console.log(movie);
         setBannerImg(movie.backdrop_path);
         setTitle(movie.title);
       });
   }, []);
+
   return (
     <div
       className="h-[25vh] md:h-[65vh] bg-cover bg-center flex items-center"

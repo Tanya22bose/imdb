@@ -7,8 +7,8 @@ import { fetchMovieMiddleware } from "../middlewares/fetchMovieMiddleware";
 
 export const Movies = () => {
   const { pageNo } = useSelector((state) => state.PaginationSlice);
-  const dispatch = useDispatch();
   const { movies, loading, error } = useSelector((state) => state.MoviesSlice);
+  const dispatch = useDispatch();
 
   useEffect(() => {
     dispatch(fetchMovieMiddleware(pageNo));

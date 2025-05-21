@@ -1,27 +1,49 @@
-import { useContext, useState } from "react";
-import { genreMap } from "../constants/genres";
+import { useContext, useEffect, useState } from "react";
+import { ALL_GENRES, genreMap } from "../constants/constants";
 import { WatchListContext } from "../context/watchListContext";
 import { getGenreFromGenreIds } from "../utils";
+import {
+  NO_WATCHLIST_MOVIES,
+  WATCHLIST_TABLE_HEADERS,
+} from "../constants/constants";
 
-export const WatchList = ({}) => {
-  const { watchList, setWatchList, removeFromWatchList } =
-    useContext(WatchListContext);
+const handleAscRatings = (watchList, setWatchList) => {
+  const sorted = watchList.sort((a, b) => a.vote_average - b.vote_average);
+  setWatchList([...sorted]);
+};
+
+const handleDescRatings = (watchList, setWatchList) => {
+  const sorted = watchList.sort((a, b) => b.vote_average - a.vote_average);
+  setWatchList([...sorted]);
+};
+
+export const WatchList = () => {
+  const { watchList, removeFromWatchList } = useContext(WatchListContext);
   const [search, setSearch] = useState("");
-  const [genreList] = useState([...Object.values(genreMap), "All Genres"]);
-  const [selectedGenre, setSelectedGenre] = useState("All Genres");
+  const [genreList] = useState([...Object.values(genreMap), ALL_GENRES]);
+  const [movies, setMovies] = useState([...watchList]);
+  const [selectedGenre, setSelectedGenre] = useState(ALL_GENRES);
 
-  const handleAscRatings = () => {
-    const sorted = watchList.sort((a, b) => a.vote_average - b.vote_average);
-    setWatchList([...sorted]);
-  };
+  useEffect(() => {
+    let filtered = watchList;
 
-  const handleDescRatings = () => {
-    const sorted = watchList.sort((a, b) => b.vote_average - a.vote_average);
-    setWatchList([...sorted]);
-  };
+    if (selectedGenre !== ALL_GENRES) {
+      filtered = filtered.filter((movie) =>
+        getGenreFromGenreIds(movie.genre_ids).includes(selectedGenre)
+      );
+    }
+
+    if (search) {
+      filtered = filtered.filter((movie) =>
+        movie.title.toLowerCase().startsWith(search.toLowerCase())
+      );
+    }
+
+    setMovies([...filtered]);
+  }, [watchList, selectedGenre, search]);
 
   if (watchList.length === 0) {
-    return <p className="m-4">Please add movies to watchlist.</p>;
+    return <p className="m-4">{NO_WATCHLIST_MOVIES}</p>;
   }
 
   return (
@@ -53,66 +75,61 @@ export const WatchList = ({}) => {
         <table className="w-full bg-white border-collapse text-left text-sm">
           <thead>
             <tr className="bg-gray-100">
-              <th className="px-6 py-4 font-medium text-gray-900">Name</th>
+              <th className="px-6 py-4 font-medium text-gray-900">
+                {WATCHLIST_TABLE_HEADERS.Name}
+              </th>
               <th className="font-medium text-gray-900">
                 <div className="flex items-center">
                   <i
                     className="fa-solid fa-arrow-up cursor-pointer"
                     onClick={handleDescRatings}
                   ></i>
-                  <div>Ratings</div>
+                  <div>{WATCHLIST_TABLE_HEADERS.Ratings}</div>
                   <i
                     className="fa-solid fa-arrow-down cursor-pointer"
                     onClick={handleAscRatings}
                   ></i>
                 </div>
               </th>
-              <th className="font-medium text-gray-900">Popularity</th>
-              <th className="font-medium text-gray-900">Genre</th>
-              <th className="font-medium text-gray-900">Actions</th>
+              <th className="font-medium text-gray-900">
+                {WATCHLIST_TABLE_HEADERS.Popularity}
+              </th>
+              <th className="font-medium text-gray-900">
+                {WATCHLIST_TABLE_HEADERS.Genre}
+              </th>
+              <th className="font-medium text-gray-900">
+                {WATCHLIST_TABLE_HEADERS.Actions}
+              </th>
             </tr>
           </thead>
-          {watchList
-            .filter((movie) => {
-              if (selectedGenre === "All Genres") {
-                return true;
-              } else {
-                return getGenreFromGenreIds(movie.genre_ids).includes(
-                  selectedGenre
-                );
-              }
-            })
-            .filter((movie) =>
-              movie.title.toLowerCase().startsWith(search.toLowerCase())
-            )
-            .map((movie) => (
-              <tbody
-                className="border-t border-gray-900 divide-y divide-gray-500"
-                key={movie.id}
-              >
-                <tr>
-                  <td className="px-6 py-4 flex items-center font-normal text-gray-900 gap-2">
-                    <img
-                      src={`https://image.tmdb.org/t/p/original${movie.poster_path}`}
-                      alt="movie-poster"
-                      className="h-[5rem] w-[8rem] object-cover"
-                    />
-                    <div className="text-sm font-medium">{movie.title}</div>
-                  </td>
-                  <td>{movie.vote_average}</td>
-                  <td>{movie.popularity}</td>
-                  <td>
-                    {movie.genre_ids.map((item) => genreMap[item]).join(",")}
-                  </td>
-                  <td>
-                    <i
-                      className="fa-solid fa-trash cursor-pointer text-red-600"
-                      onClick={() => removeFromWatchList(movie.id)}
-                    ></i>
-                  </td>
-                </tr>
-              </tbody>
-            ))}
+          {movies?.map((movie) => (
+            <tbody
+              className="border-t border-gray-900 divide-y divide-gray-500"
+              key={movie.id}
+            >
+              <tr>
+                <td className="px-6 py-4 flex items-center font-normal text-gray-900 gap-2">
+                  <img
+                    src={`https://image.tmdb.org/t/p/original${movie.poster_path}`}
+                    alt="movie-poster"
+                    className="h-[5rem] w-[8rem] object-cover"
+                  />
+                  <div className="text-sm font-medium">{movie.title}</div>
+                </td>
+                <td>{movie.vote_average}</td>
+                <td>{movie.popularity}</td>
+                <td>
+                  {movie.genre_ids.map((item) => genreMap[item]).join(",")}
+                </td>
+                <td>
+                  <i
+                    className="fa-solid fa-trash cursor-pointer text-red-600"
+                    onClick={() => removeFromWatchList(movie.id)}
+                  ></i>
+                </td>
+              </tr>
+            </tbody>
+          ))}
         </table>
       </div>
     </div>

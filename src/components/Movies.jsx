@@ -1,9 +1,14 @@
-import React, { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { Pagination } from "./Pagination";
 import { MovieCard } from "./MovieCard";
 import { useDispatch, useSelector } from "react-redux";
 import paginationSlice from "../redux/paginationSlice";
 import { fetchMovieMiddleware } from "../middlewares/fetchMovieMiddleware";
+import {
+  ERROR_TEXT,
+  MOVIE_LOADER_TEXT,
+  TRENDING_MOVIES,
+} from "../constants/constants";
 
 export const Movies = () => {
   const { pageNo } = useSelector((state) => state.PaginationSlice);
@@ -22,17 +27,14 @@ export const Movies = () => {
     dispatch(paginationSlice.actions.handleNext());
   };
 
-  if (loading) {
-    return <h4>Trending movies loading...</h4>;
-  }
-  if (error) {
-    return <h4>TRy again later...</h4>;
-  }
+  if (loading) return <h4>{MOVIE_LOADER_TEXT}</h4>;
+
+  if (error) return <h4>{ERROR_TEXT}</h4>;
 
   return (
-    <div className="">
+    <div>
       <div className="text-2xl font-bold text-center text-black m-5">
-        Trending Movies
+        {TRENDING_MOVIES}
       </div>
       <div className="flex justify-around gap-5 md:gap-8 flex-wrap">
         {movies.map((movie, i) => {

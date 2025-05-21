@@ -9,12 +9,12 @@ import { WatchListContextWrapper } from "./context/watchListContext.jsx";
 
 createRoot(document.getElementById("root")).render(
   <StrictMode>
-    <BrowserRouter>
-      <Provider store={store}>
-        <WatchListContextWrapper>
+    <Provider store={store}>
+      <WatchListContextWrapper>
+        <BrowserRouter>
           <App />
-        </WatchListContextWrapper>
-      </Provider>
-    </BrowserRouter>
+        </BrowserRouter>
+      </WatchListContextWrapper>
+    </Provider>
   </StrictMode>
 );

@@ -1,8 +1,9 @@
-import React from "react";
-import { Banner } from "./Banner";
-import { Movies } from "./Movies";
+import { lazy } from "react";
 
-export const Home = () => {
+const Movies = lazy(() => import("./Movies"));
+const Banner = lazy(() => import("./Banner"));
+
+const Home = () => {
   return (
     <div>
       <Banner />
@@ -10,3 +11,5 @@ export const Home = () => {
     </div>
   );
 };
+
+export default Home;

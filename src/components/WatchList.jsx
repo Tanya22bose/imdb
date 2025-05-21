@@ -17,7 +17,7 @@ const handleDescRatings = (watchList, setWatchList) => {
   setWatchList([...sorted]);
 };
 
-export const WatchList = () => {
+const WatchList = () => {
   const { watchList, removeFromWatchList } = useContext(WatchListContext);
   const [search, setSearch] = useState("");
   const [genreList] = useState([...Object.values(genreMap), ALL_GENRES]);
@@ -135,3 +135,5 @@ export const WatchList = () => {
     </div>
   );
 };
+
+export default WatchList;

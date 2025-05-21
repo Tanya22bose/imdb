@@ -1,7 +1,7 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 
-export const Banner = () => {
+const Banner = () => {
   const [bannerImg, setBannerImg] = useState(null);
   const [title, setTitle] = useState(null);
 
@@ -28,3 +28,5 @@ export const Banner = () => {
     </div>
   );
 };
+
+export default Banner;

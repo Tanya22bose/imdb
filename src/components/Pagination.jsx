@@ -1,6 +1,6 @@
 import React from "react";
 
-export const Pagination = ({ handleNext, handlePrevious, pageNo }) => {
+const Pagination = ({ handleNext, handlePrevious, pageNo }) => {
   return (
     <div className="flex justify-center gap-4 items-center w-full h-[3rem] p-4 mt-5 bg-gray-300">
       <button onClick={handlePrevious}>
@@ -13,3 +13,5 @@ export const Pagination = ({ handleNext, handlePrevious, pageNo }) => {
     </div>
   );
 };
+
+export default Pagination;

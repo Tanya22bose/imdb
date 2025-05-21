@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import logo from "../assets/imdb.png";
 import { MOVIES, WATCHLIST } from "../constants/constants";
 
-export const Navbar = () => {
+const Navbar = () => {
   return (
     <div className="flex space-x-8 items-center pl-3 py-1">
       <Link to={"/"}>
@@ -17,3 +17,5 @@ export const Navbar = () => {
     </div>
   );
 };
+
+export default Navbar;

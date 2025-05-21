@@ -8,7 +8,7 @@ const doesContain = (movie, watchList) => {
   return false;
 };
 
-export const MovieCard = ({ movie }) => {
+const MovieCard = ({ movie }) => {
   const { watchList, addtoWatchList, removeFromWatchList } =
     useContext(WatchListContext);
 
@@ -36,3 +36,5 @@ export const MovieCard = ({ movie }) => {
     </div>
   );
 };
+
+export default MovieCard;

@@ -1,6 +1,4 @@
-import { useEffect } from "react";
-import { Pagination } from "./Pagination";
-import { MovieCard } from "./MovieCard";
+import { lazy, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import paginationSlice from "../redux/paginationSlice";
 import { fetchMovieMiddleware } from "../middlewares/fetchMovieMiddleware";
@@ -10,7 +8,10 @@ import {
   TRENDING_MOVIES,
 } from "../constants/constants";
 
-export const Movies = () => {
+const Pagination = lazy(() => import("./Pagination"));
+const MovieCard = lazy(() => import("./MovieCard"));
+
+const Movies = () => {
   const { pageNo } = useSelector((state) => state.PaginationSlice);
   const { movies, loading, error } = useSelector((state) => state.MoviesSlice);
   const dispatch = useDispatch();
@@ -49,3 +50,5 @@ export const Movies = () => {
     </div>
   );
 };
+
+export default Movies;

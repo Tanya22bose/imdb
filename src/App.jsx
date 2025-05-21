@@ -1,17 +1,21 @@
 import { Route, Routes } from "react-router-dom";
+import { lazy, Suspense } from "react";
 import "./App.css";
-import { Home } from "./components/Home";
-import { Navbar } from "./components/Navbar";
-import { WatchList } from "./components/WatchList";
+
+const Home = lazy(() => import("./components/Home"));
+const WatchList = lazy(() => import("./components/WatchList"));
+const Navbar = lazy(() => import("./components/Navbar"));
 
 function App() {
   return (
     <>
-      <Navbar />
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/watchlist" element={<WatchList />} />
-      </Routes>
+      <Suspense fallback={<div>Loading...</div>}>
+        <Navbar />
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/watchlist" element={<WatchList />} />
+        </Routes>
+      </Suspense>
     </>
   );
 }

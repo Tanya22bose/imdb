@@ -1,12 +1,78 @@
-# React + Vite
+# 🎬 IMDB Clone – Movie Explorer App
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A clean and modern IMDB-inspired movie browsing application that allows users to explore trending movies, paginate through pages, filter by genre, sort ratings, and manage a personal watchlist — all built using React, Redux, and TMDb API.
 
-Currently, two official plugins are available:
+## 🚀 Features
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+🎞 Trending Movies Banner – Highlighted banner from top trending movies.
 
-## Expanding the ESLint configuration
+📄 Pagination – Navigate through multiple pages of movie listings.
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+🧾 Movie Cards – Hover-based cards with poster and title. Click to add/remove from Watchlist.
+
+😍 Watchlist – Add/remove movies with persistent local state via Context API.
+
+🎯 Category Filtering – Genre-based filtering in Watchlist using genre_ids.
+
+⏫ Sort Ratings – Sort movies by rating in ascending/descending order.
+
+🔍 Search – Live search on the Watchlist page.
+
+🔗 Route-Based Navigation – Implemented using React Router.
+
+## 🧱 Tech Stack
+Framework: React 18+
+
+State Management: Redux Toolkit (Pagination, Movies), Context API (Watchlist)
+
+API: TMDb API
+
+Styling: Tailwind CSS
+
+Routing: React Router DOM
+
+Icons: Font Awesome
+
+## 🧭 Pages & Routes
+`/Home` – Trending Banner + Paginated Movies
+
+`/watchlist`	Watchlist – Add/remove, filter, sort, search
+
+## 📦 Project Structure
+```
+/src
+│
+├── components/
+│   ├── Banner.jsx           # Top banner from trending movie
+│   ├── MovieCard.jsx        # Poster with title and watchlist emoji
+│   ├── Movies.jsx           # Paginated movie grid
+│   ├── Pagination.jsx       # Prev/Next page controls
+│   └── Navbar.jsx           # Navigation header
+│
+├── pages/
+│   ├── Home.jsx             # Home page (Banner + Movies)
+│   └── WatchList.jsx        # Watchlist management
+│
+├── context/
+│   └── watchListContext.js  # Watchlist context and provider
+│
+├── redux/
+│   ├── paginationSlice.js   # Redux slice for pagination state
+│   ├── movieSlice.js        # Movies state (loading, error, movies[])
+│   └── store.js             # Redux store setup
+│
+└── utils/                   # Genre mapping, helpers
+
+```
+
+## ⚙️ Installation & Usage
+
+1. Clone the repo : `git clone https://github.com/your-username/imdb-clone.git`
+2. cd imdb-clone
+3. Install dependencies: `npm install`
+4. Run development server: `npm run dev`
+
+## 🙏 Acknowledgements
+- TMDb API
+- Font Awesome Icons
+- Inspired by IMDB

@@ -67,7 +67,7 @@ Icons: Font Awesome
 
 ## ⚙️ Installation & Usage
 
-1. Clone the repo : `git clone https://github.com/your-username/imdb-clone.git`
+1. Clone the repo : `git clone` [repo](https://github.com/Tanya22bose/imdb.git)
 2. cd imdb-clone
 3. Install dependencies: `npm install`
 4. Run development server: `npm run dev`
